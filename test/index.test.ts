@@ -4,7 +4,7 @@ import path from "path"
 import { bundleRequire, JS_EXT_RE } from "../dist"
 
 test("main", async () => {
-  const { mod, dependencies } = await bundleRequire({
+  const { mod, dependencies } = await bundleRequire<{ default: { a: { filename: string }}}>({
     filepath: path.join(__dirname, "./fixture/input.ts"),
   })
   assert.equal(mod.default.a.filename.endsWith("a.ts"), true)

@@ -162,7 +162,7 @@ export const replaceDirnamePlugin = (): EsbuildPlugin => {
   }
 }
 
-export async function bundleRequire(options: Options) {
+export async function bundleRequire<T = any>(options: Options) {
   if (!JS_EXT_RE.test(options.filepath)) {
     throw new Error(`${options.filepath} is not a valid JS file`)
   }
@@ -188,7 +188,7 @@ export async function bundleRequire(options: Options) {
 
     await fs.promises.writeFile(outfile, text, "utf8")
 
-    let mod: any
+    let mod: T
     const req: RequireFunction = options.require || dynamicImport
     try {
       mod = await req(
